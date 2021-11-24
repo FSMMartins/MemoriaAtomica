@@ -1,0 +1,230 @@
+@font-face {
+    font-family: "Pixel";
+    src: url(Assets/Fonts/Pixel.woff2) format("woff2");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100vh;
+  cursor:url(Assets/Cursors/icon.png),auto;
+  font-family: Pixel;
+}
+
+body {
+  margin: 0;
+  background-image: url(Assets/Images/Background.png)
+
+}
+
+.page-title {
+   text-shadow: 
+    2px 0 0 #fff, -2px 0 0 #fff,
+    0 2px 0 #fff, 0 -2px 0 #fff, 
+    1px 1px #fff, -1px -1px 0 #fff,
+    1px -1px 0 #fff, -1px 1px 0 #fff;
+  color: #5efff2;
+  text-align: center;
+  font-size: 75px;
+}
+
+.game-info-container {
+    
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.game-info {
+ text-shadow: 
+    1px 0px 1px #49f2e5, 0px 1px 1px #8cf0f5, 
+    2px 1px 1px #49f2e5, 1px 2px 1px #8cf0f5,
+    3px 2px 1px #49f2e5, 2px 3px 1px #8cf0f5,
+    4px 3px 1px #49f2e5, 3px 4px 1px #8cf0f5,
+    5px 4px 1px #49f2e5, 4px 5px 1px #8cf0f5,
+    6px 5px 1px #49f2e5, 5px 6px 1px #8cf0f5,
+    7px 6px 1px #49f2e5;
+  color: white; 
+    margin: 0px 0px 45px 0px;
+
+  font-size: 50px;
+}
+
+.game-container {
+  margin: 50px auto;
+  display: grid;
+  grid-template-columns: repeat(10, auto);
+  grid-gap: 10px;
+  justify-content: center;
+  perspective: 500px;
+}
+
+.card {
+  position: relative;
+  height: 175px;
+  width: 125px;
+}
+
+.card-face {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 1px;
+  border-width: 5px;
+  border-style: solid;
+  overflow: hidden;
+  transition: transform 500ms ease-in-out;
+  backface-visibility: hidden;
+}
+
+.card.visible .card-back {
+  transform: rotateY(-180deg); 
+}
+
+.card.visible .card-front {
+  transform: rotateY(0); 
+}
+
+.card.matched .card-front .card-value {
+  animation: dance 1s linear infinite 500ms;
+}
+
+.card-back {
+  background-color: white;
+  border-color:#49f2e5 ;
+  transform: rotateY(0); 
+}
+
+.cob-web {
+  position: absolute;
+  transition: width 100ms ease-in-out, height 100ms ease-in-out;
+  width: 47px;
+  height: 47px;
+}
+
+.card-face:hover .cob-web {
+  width: 52px;
+  height: 52px;
+}
+
+.cob-web-top-left {
+  transform: rotate(270deg);
+  top: 0;
+  left: 0;
+}
+
+.cob-web-top-right {
+  top: 0;
+  right: 0;
+}
+
+.cob-web-bottom-left {
+  transform: rotate(180deg);
+  bottom: 0;
+  left: 0;
+}
+
+.cob-web-bottom-right {
+  transform: rotate(90deg);
+  bottom: 0;
+  right: 0;
+}
+
+.cardback {
+  align-self: flex-start;
+  transition: transform .2s ease-in-out;
+  transform: scale(1.1)
+}
+
+.card-back:hover .cardback {
+  transform: translateY(0);
+}
+
+.card-value {
+  position: relative;
+  transition: transform 100ms ease-in-out;
+}
+
+.card-front:hover .card-value {
+  transform: scale(1);
+}
+
+.card-front {
+  background-color: white;
+  border-color: #49f2e5;
+  transform: rotateY(180deg);
+}
+
+.overlay-text {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-shadow: 
+    1px 0px 1px #49f2e5, 0px 1px 1px #8cf0f5, 
+    2px 1px 1px #49f2e5, 1px 2px 1px #8cf0f5,
+    3px 2px 1px #49f2e5, 2px 3px 1px #8cf0f5,
+    4px 3px 1px #49f2e5, 3px 4px 1px #8cf0f5,
+    5px 4px 1px #49f2e5, 4px 5px 1px #8cf0f5,
+    6px 5px 1px #49f2e5, 5px 6px 1px #8cf0f5,
+    7px 6px 1px #49f2e5;
+  color: white; 
+  font-family:Pixel, sherrif;
+  transition: background-color 500ms, font-size 500ms;
+}
+
+.overlay-text-small {
+  font-size: .5em;
+}
+
+.overlay-text.visible {
+  font-size: .1em;
+  display: flex;
+  animation: overlay-grow 2s forwards;
+}
+
+@keyframes dance {
+  0%, 100% {
+    transform: rotate(0)
+  }
+  25% {
+    transform: rotate(-10deg)
+  }
+  75% {
+    transform: rotate(10deg)
+  }
+}
+
+@keyframes overlay-grow {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 0;
+  }
+  to {
+    background-color: rgba(0, 0, 0, .8);
+    font-size: 10em;
+  }
+}
+
+@media (max-width: 600px) {
+  .game-container {
+    grid-template-columns: repeat(2, auto)
+  }
+
+  .game-info-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
